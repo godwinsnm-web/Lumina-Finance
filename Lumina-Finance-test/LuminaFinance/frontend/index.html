@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LuminaFinance — Portfolio & Forecast</title>
+  <meta name="description"
+    content="LuminaFinance provides dynamic portfolio tracking, forecasting, and expense monitoring with clean and actionable insights.">
+  <meta name="keywords" content="finance, portfolio, forecasting, expenses">
+  <meta name="author" content="LuminaFinance">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/styles.css?v=2">
+</head>
+
+<body>
+  <main class="shell">
+
+    <header class="brand" data-reveal id="dashboard">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <div class="brand-mark"></div>
+        <div class="brand-name">Lumina<span>Finance</span></div>
+      </div>
+      <div style="margin-left: auto; display: flex; align-items: center; gap: 16px;">
+        <a href="https://github.com/godwinsnm-web" target="_blank" rel="noopener noreferrer" style="color: var(--ink-soft); transition: color 0.2s ease; cursor: pointer; display: flex; align-items: center;" onmouseover="this.style.color='var(--ink)'" onmouseout="this.style.color='var(--ink-soft)'" aria-label="GitHub">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+          </svg>
+        </a>
+        <button id="theme-toggle" style="background: none; border: none; color: var(--ink-soft); cursor: pointer; display: flex; align-items: center; transition: color 0.2s ease;" onmouseover="this.style.color='var(--ink)'" onmouseout="this.style.color='var(--ink-soft)'" aria-label="Toggle Theme">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <section class="hero">
+      <p class="hero-eyebrow" data-reveal>
+        Portfolio · <span data-bind="period">…</span>
+      </p>
+      <h1 class="hero-title" data-reveal style="--reveal-delay: 80ms">
+        Money that <em>compounds</em>, clarity that doesn't blur.
+      </h1>
+      <p class="hero-sub" data-reveal style="--reveal-delay: 160ms">
+        Six months of habitual spend, filtered for one-shot purchases, projected forward.
+        Your runway, recalculated nightly.
+      </p>
+    </section>
+
+    <div class="section-head" data-reveal>
+      <h2>Snapshot</h2>
+      <span class="meta" data-bind="updated">…</span>
+    </div>
+
+    <section class="stat-grid">
+      <article class="lumina-card" data-reveal>
+        <div class="card-head">
+          <span class="dot"></span>
+          <h3>Total Balance</h3>
+        </div>
+        <p class="amount" data-counter data-bind-target="balance.total" data-prefix="$">$0.00</p>
+        <span class="trend trend--up">
+          <svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true">
+            <path d="M2 8 L6 4 L10 8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+          <span data-bind-trend="balance.trend_pct">+0.0%</span> this month
+        </span>
+      </article>
+
+      <article class="lumina-card" data-reveal style="--reveal-delay: 80ms">
+        <div class="card-head">
+          <span class="dot dot--rose"></span>
+          <h3>Monthly Burn</h3>
+        </div>
+        <p class="amount amount--rose" data-counter data-bind-target="burn.monthly" data-prefix="$">$0.00</p>
+        <span class="amount-suffix" data-bind="burn.method-label">3-mo MA, outliers filtered</span>
+        <span class="trend trend--down">
+          <svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true">
+            <path d="M2 4 L6 8 L10 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+          <span data-bind="burn.dropped-label">…</span>
+        </span>
+      </article>
+
+      <article class="lumina-card" data-reveal style="--reveal-delay: 160ms">
+        <div class="card-head">
+          <span class="dot dot--neutral"></span>
+          <h3>Financial Runway</h3>
+        </div>
+        <p class="amount" data-counter data-bind-target="runway_months" data-suffix=" mo">0 mo</p>
+        <span class="amount-suffix">Balance ÷ filtered burn</span>
+        <span class="trend trend--up" data-bind-runway-label>Healthy</span>
+      </article>
+    </section>
+
+    <div class="section-head" data-reveal id="portfolio">
+      <h2>Portfolio</h2>
+      <span class="meta" data-bind="alloc-count">…</span>
+    </div>
+
+    <section class="alloc-grid">
+      <article class="lumina-card" data-reveal>
+        <div class="card-head">
+          <span class="dot"></span>
+          <h3>Asset Mix</h3>
+        </div>
+        <p class="amount" data-counter data-bind-target="balance.total" data-prefix="$">$0.00</p>
+        <div class="alloc-list" data-bind-allocations></div>
+      </article>
+
+      <article class="lumina-card" data-reveal style="--reveal-delay: 80ms">
+        <div class="card-head">
+          <span class="dot"></span>
+          <h3>Top Mover</h3>
+        </div>
+        <p class="amount" data-counter data-bind-target="top_mover.value" data-prefix="$">$0.00</p>
+        <span class="amount-suffix" data-bind="top_mover.subtitle">…</span>
+        <span class="trend trend--up" data-bind="top_mover.trend">…</span>
+      </article>
+    </section>
+
+    <div class="section-head" data-reveal id="forecast">
+      <h2>6-Month Forecast</h2>
+      <span class="meta" data-bind="forecast.method">…</span>
+    </div>
+
+    <section class="lumina-card" data-reveal>
+      <div style="position: relative; margin-bottom: 32px; padding: 0 10px;">
+        <svg id="forecast-chart" viewBox="0 0 1000 120" preserveAspectRatio="none"
+          style="width: 100%; height: 80px; overflow: visible; opacity: 0.9; margin-top: 10px;"></svg>
+      </div>
+      <div class="forecast-strip" data-bind-forecast></div>
+    </section>
+
+    <div class="section-head" data-reveal id="transactions">
+      <h2>Recent Activity</h2>
+      <span class="meta" data-bind="recent-count">…</span>
+    </div>
+
+    <section class="lumina-card" data-reveal>
+      <div style="margin-bottom: 16px; display: flex; gap: 8px; align-items: center;">
+        <input type="text" id="txn-search" class="txn-search-input" placeholder="Search activity..." autocomplete="off">
+        <button id="txn-reset" type="button"
+          style="display: none; white-space: nowrap; padding: 12px 16px; border-radius: 12px; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-line); color: var(--ink); cursor: pointer; transition: background 0.2s; font: 400 0.95rem 'Inter', sans-serif;"
+          onmouseover="this.style.background='rgba(255,255,255,0.1)'"
+          onmouseout="this.style.background='rgba(255,255,255,0.05)'">Show All</button>
+      </div>
+      <ul class="txn-list" data-bind-transactions></ul>
+    </section>
+
+    <div class="section-head" data-reveal id="settings">
+      <h2>Profile</h2>
+      <span class="meta">Account</span>
+    </div>
+
+    <section class="lumina-card" data-reveal>
+      <div class="profile">
+        <div class="profile-avatar" data-bind="profile.initial">A</div>
+        <div class="profile-info">
+          <div class="profile-name" data-bind="user.name">…</div>
+          <div class="profile-email" data-bind="user.email">…</div>
+        </div>
+        <div class="profile-meta">
+          <div><span class="profile-label">Currency</span><span data-bind="user.currency">USD</span></div>
+        </div>
+        <button type="button" class="sign-out" data-action="logout">Sign out</button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Login / Register overlay (shown when /api/dashboard/ returns 401) -->
+  <div class="auth-overlay" data-auth-overlay hidden>
+    <form class="auth-card" data-auth-form autocomplete="on">
+      <div class="auth-mark"></div>
+      <h2 class="auth-title" id="auth-title-text">Welcome back</h2>
+      <p class="auth-sub" id="auth-sub-text">Sign in to LuminaFinance.</p>
+
+      <label class="auth-field" id="auth-name-field" style="display: none;">
+        <span>Name</span>
+        <input type="text" id="name" name="name" autocomplete="name" placeholder="John Doe">
+      </label>
+
+      <label class="auth-field">
+        <span>Email</span>
+        <input type="email" id="email" name="email" required autocomplete="email" value="godwin.snm@gmail.com">
+      </label>
+      <label class="auth-field">
+        <span>Password</span>
+        <input type="password" id="password" name="password" required autocomplete="current-password" value="godwin123">
+      </label>
+
+      <button type="submit" class="auth-submit">
+        <span class="auth-submit-label">Sign in</span>
+      </button>
+
+      <p class="auth-error" id="auth-error-msg" data-auth-error hidden></p>
+      <p class="auth-hint" style="margin-bottom: 0;">Prefilled · <code>godwin.snm@gmail.com</code> / <code>godwin123</code></p>
+      
+      <p class="auth-toggle" style="text-align: center; margin-top: 16px; font-size: 0.9rem; color: var(--ink-mute);">
+        <span id="auth-toggle-text">Don't have an account?</span> 
+        <a href="#" id="auth-toggle-btn" style="color: var(--emerald); text-decoration: none; font-weight: 500;">Register here</a>
+      </p>
+    </form>
+  </div>
+
+  <nav class="dock" aria-label="Primary">
+    <a class="dock-item is-active" href="#dashboard" aria-label="Dashboard">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+        stroke-linejoin="round">
+        <path d="M3 12 12 4l9 8" />
+        <path d="M5 10v10h14V10" />
+      </svg>
+      <span class="tip">Dashboard</span>
+    </a>
+    <a class="dock-item" href="#transactions" aria-label="Transactions">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+        stroke-linejoin="round">
+        <path d="M3 7h13" />
+        <path d="m13 4 3 3-3 3" />
+        <path d="M21 17H8" />
+        <path d="m11 14-3 3 3 3" />
+      </svg>
+      <span class="tip">Transactions</span>
+    </a>
+    <a class="dock-item" href="#portfolio" aria-label="Portfolio">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+        stroke-linejoin="round">
+        <path d="M3 20V10" />
+        <path d="M9 20V4" />
+        <path d="M15 20v-8" />
+        <path d="M21 20V8" />
+      </svg>
+      <span class="tip">Portfolio</span>
+    </a>
+    <a class="dock-item" href="#forecast" aria-label="Forecast">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+        stroke-linejoin="round">
+        <circle cx="12" cy="12" r="9" />
+        <path d="M12 7v5l3 2" />
+      </svg>
+      <span class="tip">Forecast</span>
+    </a>
+    <a class="dock-item" href="#settings" aria-label="Settings">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+        stroke-linejoin="round">
+        <circle cx="12" cy="12" r="3" />
+        <path
+          d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 0 1-4 0v-.1a1.7 1.7 0 0 0-1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 0 1 0-4h.1a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3h0a1.7 1.7 0 0 0 1-1.5V3a2 2 0 0 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8v0a1.7 1.7 0 0 0 1.5 1H21a2 2 0 0 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z" />
+      </svg>
+      <span class="tip">Settings</span>
+    </a>
+  </nav>
+
+  <script src="/static/app.js?v=9"></script>
+
+  <button id="fab-add-txn" title="Add Transaction"
+    style="position: fixed; bottom: 32px; right: 32px; width: 56px; height: 56px; border-radius: 28px; background: linear-gradient(135deg, var(--emerald) 0%, #2bd9ff 100%); color: var(--bg); border: none; font-size: 28px; cursor: pointer; box-shadow: 0 12px 24px rgba(80, 250, 123, 0.4); display: flex; align-items: center; justify-content: center; z-index: 100; transition: transform 0.2s var(--ease);">+</button>
+
+  <div id="txn-modal"
+    style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); z-index: 200; align-items: center; justify-content: center;">
+    <div class="lumina-card"
+      style="width: 100%; max-width: 400px; padding: 32px; transform: scale(0.95); opacity: 0; transition: all 0.3s var(--ease);"
+      id="txn-modal-content">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+        <h3 style="font-size: 1.2rem; font-weight: 500;">New Transaction</h3>
+        <button id="txn-modal-close" type="button"
+          style="background: none; border: none; color: var(--ink-mute); font-size: 24px; cursor: pointer;">&times;</button>
+      </div>
+      <form id="add-txn-form" style="display: flex; flex-direction: column; gap: 16px;">
+        <input type="text" name="description" placeholder="Description (e.g. Starbucks)" required
+          style="width: 100%; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-line); color: var(--ink); padding: 12px 16px; border-radius: 12px; font-family: inherit;">
+        <div style="display: flex; gap: 12px;">
+          <input type="number" name="amount" placeholder="Amount" step="0.01" required
+            style="flex: 1; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-line); color: var(--ink); padding: 12px 16px; border-radius: 12px; font-family: inherit;">
+          <select name="type" required
+            style="flex: 1; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-line); color: var(--ink); padding: 12px 16px; border-radius: 12px; font-family: inherit;">
+            <option value="EXPENSE" style="color: black;">Expense</option>
+            <option value="INCOME" style="color: black;">Income</option>
+          </select>
+        </div>
+        <select name="category" required
+          style="width: 100%; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-line); color: var(--ink); padding: 12px 16px; border-radius: 12px; font-family: inherit;">
+          <option value="Dining" style="color: black;">Dining</option>
+          <option value="Groceries" style="color: black;">Groceries</option>
+          <option value="Transport" style="color: black;">Transport</option>
+          <option value="Subscriptions" style="color: black;">Subscriptions</option>
+          <option value="Rent" style="color: black;">Rent</option>
+          <option value="Salary" style="color: black;">Salary</option>
+          <option value="Other" style="color: black;">Other</option>
+        </select>
+        <button type="submit"
+          style="width: 100%; padding: 14px; border-radius: 12px; background: linear-gradient(135deg, var(--emerald) 0%, #2bd9ff 100%); color: var(--bg); border: none; font-weight: 600; cursor: pointer; margin-top: 8px; transition: opacity 0.2s;">Add
+          Transaction</button>
+      </form>
+    </div>
+  </div>
+</body>
+
+</html>
